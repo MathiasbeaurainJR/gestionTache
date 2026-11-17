@@ -43,12 +43,13 @@ function renderTasks() {
         return matchFilter && matchSearch;
     });
 
-    // afficher un message si aucune tache nest trouve
+    // afficher un message si aucune tache n'est trouvee
     if (filtered.length === 0) {
-        tasksContainer.innerHTML = `<p class="text-center text-muted">aucune tache trouve.</p>`;
+        tasksContainer.innerHTML = `<p class="text-center text-muted">aucune tache trouvee.</p>`;
         return;
     }
-// creer dynamiquement les cartes pour chaque tache
+
+    // creer dynamiquement les cartes pour chaque tache
     filtered.forEach(task => {
         const col = document.createElement("div");
         col.className = "col-md-6 col-lg-4";
@@ -75,7 +76,7 @@ function renderTasks() {
     });
 }
 
-// evenement pour ajouter ou modifier une tache lors de la soumission du formulair
+// evenement pour ajouter ou modifier une tache lors de la soumission du formulaire
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const titre = titleInput.value.trim();
@@ -87,15 +88,16 @@ form.addEventListener("submit", (e) => {
         alert("le titre est obligatoire !");
         return;
     }
+
     if (editingId) {
-        // mode modification et aussi mettre a jour la tache existante
+        // mode modification : mettre a jour la tache existante
         tasks = tasks.map(t => {
             if (t.id === editingId) {
                 return {
                     ...t,
-                    titre : titre,
-                    description : description,
-                    statut : statut,
+                    titre: titre,
+                    description: description,
+                    statut: statut,
                     couleur: getStatusColor(statut)
                 };
             }
@@ -104,15 +106,15 @@ form.addEventListener("submit", (e) => {
         editingId = null;
         submitBtn.textContent = "ajouter la tache";
     } else {
-        //creer un nouvel objet tache avec toutes les proprietes demandees
+        // mode ajout : creer un nouvel objet tache avec toutes les proprietes demandees
         const newTask = {
             id: Date.now(),
-            titre : titre,
-            description : description,
-            statut : statut,
+            titre: titre,
+            description: description,
+            statut: statut,
             createdAt: new Date().toISOString(),
-            couleur : getStatusColor(statut),
-            };
+            couleur: getStatusColor(statut)
+        };
         tasks.push(newTask);
     }
 
@@ -146,15 +148,15 @@ filterBtns.forEach(btn => {
         filterBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         currentFilter = btn.getAttribute("data-filter");
-        renderTasks;
+        renderTasks(); // CORRECTION : ajout des parentheses pour executer la fonction
     });
 });
 
-//recherche en temps reel
+// recherche en temps reel
 searchInput.addEventListener("input", (e) => {
     currentSearch = e.target.value;
-renderTasks();
+    renderTasks();
 });
 
-// lancer l'affichage de la page
+// lancer l'affichage initial de la page
 renderTasks();
