@@ -42,3 +42,11 @@ function renderTasks() {
                             (task.description && task.description.toLowerCase().includes(currentSearch.toLowerCase()));[cite: 8]
         return matchFilter && matchSearch;
     });
+
+    // afficher un message si aucune tache n'est trouvee
+    if (filtered.length === 0) {
+        tasksContainer.innerHTML = `<p class="text-center text-muted">aucune tache trouvee.</p>`;[cite: 8]
+        return;
+    }
+
+    
