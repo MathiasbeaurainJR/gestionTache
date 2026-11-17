@@ -75,3 +75,86 @@ function renderTasks() {
     });
 }
 
+// evenement pour ajouter ou modifier une tache lors de la soumission du formulair
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const titre = titleInput.value.trim();
+    const description = descInput.value.trim();
+    const statut = statusInput.value;
+
+    // verifier que le titre n'est pas vide
+    if (!titre) {
+        alert("le titre est obligatoire !");
+        return;
+    }
+    if (editingId) {
+        // mode modification et aussi mettre a jour la tache existante
+        tasks = tasks.map(t => {
+            if (t.id === editingId) {
+                return {
+                    ...t,
+                    titre : titre,
+                    description : description,
+                    statut : statut,
+                    couleur: getStatusColor(statut)
+                };
+            }
+            return t;
+        });
+        editingId = null;
+        submitBtn.textContent = "ajouter la tache";
+    } else {
+        //creer un nouvel objet tache avec toutes les proprietes demandees
+        const newTask = {
+            id: Date.now(),
+            titre : titre,
+            description : description,
+            statut : statut,
+            createdAt: new Date().toISOString(),
+            couleur : getStatusColor(statut),
+            };
+        tasks.push(newTask);
+    }
+
+    form.reset();
+    saveAndRender();
+});
+
+// fonction pour supprimer une tache par son identifiant
+window.deleteTask = function(id) {
+    tasks = tasks.filter(t => t.id !== id);
+    saveAndRender();
+};
+
+// fonction pour remplir le formulaire avec les infos de la tache a modifier
+window.prepareEdit = function(id) {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+
+    titleInput.value = task.titre;
+    descInput.value = task.description || "";
+    statusInput.value = task.statut;
+
+    editingId = id;
+    submitBtn.textContent = "mettre a jour";
+    titleInput.focus();
+};
+
+// gestion des clics sur les boutons de filtre par statut
+filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentFilter = btn.getAttribute("data-filter");
+        renderTasks;
+    });
+});
+
+//recherche en temps reel
+searchInput.addEventListener("input", (e) => {
+    currentSearch = e.target.value;
+renderTasks();
+});
+
+// lancer l'affichage de la page
+renderTasks();
