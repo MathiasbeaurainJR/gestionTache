@@ -1,15 +1,32 @@
-Contexte et objectif
-Vous devez réaliser une application web permettant de gérer une liste de tâches. L’utilisateur doit pouvoir ajouter, consulter,
-modifier et supprimer des tâches, mais aussi les filtrer et effectuer une recherche.
-Le projet doit être développé en JavaScript, avec les notions étudiées en cours : variables, fonctions, tableaux, objets littéraux,
-conditions, boucles, événements et manipulation du DOM.
-2. Données d’une tâche
-Chaque tâche est représentée par un objet JavaScript contenant les propriétés suivantes :
-• id : identifiant unique (par exemple avec Date.now()).
-• titre : obligatoire, chaîne de caractères non vide.
-• description : facultative, chaîne de caractères.
-• statut : « à faire », « en cours », « terminée » ou « bloquée ».
-• createdAt : date de création.
-• couleur : couleur associée au statut (bleu, orange, vert ou rouge).
-Les tâches seront stockées dans un tableau d’objets. Prévoyez une validation pour empêcher l’enregistrement d’un titre vide ou
-d’un statut non autorisé.
+# Gestionnaire de Tâches
+
+Projet réalisé en binôme en JavaScript pour apprendre à manipuler le DOM et utiliser le localStorage.
+
+## Fonctionnalités
+
+- Ajouter une tâche avec un titre (obligatoire), une description et un statut (À faire, En cours, Terminée, Bloquée).
+- Afficher les tâches sous forme de cartes avec une couleur différente selon le statut.
+- Modifier une tâche existante.
+- Supprimer une tâche.
+- Filtrer les tâches par statut.
+- Rechercher une tâche par son titre ou sa description.
+- Sauvegarde automatique des tâches dans le navigateur (localStorage).
+
+## Technologies utilisées
+
+- HTML
+- CSS / Bootstrap 5
+- JavaScript
+- Git et GitHub
+
+## Fichiers du projet
+
+- `index.html` : la structure de la page et le formulaire
+- `style.css` : quelques styles personnalisés en plus de Bootstrap
+- `script.js` : le code JavaScript pour gérer les tâches et le localStorage
+
+## Répartition du travail
+
+- **Mathias** : HTML et CSS (Bootstrap)
+- **Louay** : JavaScript (ajout, modification, suppression, localStorage)
+- **Ensemble** : Filtres, recherche, tests et GitHub
