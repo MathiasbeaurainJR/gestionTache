@@ -148,7 +148,7 @@ filterBtns.forEach(btn => {
         filterBtns.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
         currentFilter = btn.getAttribute("data-filter");
-        renderTasks(); // CORRECTION : ajout des parentheses pour executer la fonction
+        renderTasks();
     });
 });
 
